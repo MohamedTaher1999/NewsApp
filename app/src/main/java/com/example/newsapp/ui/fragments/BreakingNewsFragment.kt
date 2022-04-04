@@ -16,20 +16,19 @@ import com.example.newsapp.adapters.NewsAdapter
 import com.example.newsapp.ui.NewsActivity
 import com.example.newsapp.ui.NewsViewModel
 import com.example.newsapp.util.Resource
+import kotlinx.android.synthetic.main.fragment_breaking_news.*
 
 
 class BreakingNewsFragment : Fragment() {
 
     lateinit var viewModel:NewsViewModel
     lateinit var newsAdapter:NewsAdapter
-    lateinit var rvBreakingNews:RecyclerView
-    lateinit var paginationProgressBar:ProgressBar
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel=(activity as NewsActivity).viewModel
         setupRecyclerView()
-        viewModel.breakingNews.observe(viewLifecycleOwner, Observer { response->
+        viewModel.breakingNewsLiveData.observe(viewLifecycleOwner, Observer { response->
             when(response){
                 is Resource.Success->{
                     hideProgressBar()
@@ -61,8 +60,6 @@ class BreakingNewsFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         val view:View= inflater.inflate(R.layout.fragment_breaking_news, container, false)
-        rvBreakingNews=view.findViewById(R.id.rvBreakingNews)
-        paginationProgressBar=view.findViewById(R.id.paginationProgressBar)
         return view
     }
 

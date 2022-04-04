@@ -8,11 +8,13 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.newsapp.R
 import com.example.newsapp.db.ArticleDatabase
 import com.example.newsapp.repository.NewsRepository
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.activity_news.*
 
 
 class NewsActivity : FragmentActivity() {
@@ -28,8 +30,7 @@ class NewsActivity : FragmentActivity() {
 
         setContentView(R.layout.activity_news)
 
-        var bottomNavigationView: BottomNavigationView =findViewById(R.id.bottomNavigationView)
-        var newsNavHostFragment: FragmentContainerView =findViewById(R.id.newsNavHostFragment)
+
         bottomNavigationView.setupWithNavController(newsNavHostFragment.findNavController())
 
 
