@@ -10,6 +10,7 @@ import com.example.newsapp.repository.NewsRepository
 import com.example.newsapp.util.Resource
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import com.example.newsapp.models.Article
 
 class NewsViewModel(val newsRepository: NewsRepository) : ViewModel() {
 
@@ -53,4 +54,14 @@ class NewsViewModel(val newsRepository: NewsRepository) : ViewModel() {
         }
         return Resource.Error(response.message())
     }
+
+    fun saveArticle(article : Article)=viewModelScope.launch{
+        newsRepository.insert(article)
+    }
+    fun getSavedNews()=newsRepository.getSavedNews()
+
+    fun deleteArticle(article:Article)=viewModelScope.launch{
+        newsRepository.deleteArticle(article)
+    }
+    
 }

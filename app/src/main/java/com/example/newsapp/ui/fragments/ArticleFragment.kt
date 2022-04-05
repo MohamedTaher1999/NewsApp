@@ -11,6 +11,7 @@ import com.example.newsapp.R
 import com.example.newsapp.models.Article
 import com.example.newsapp.ui.NewsActivity
 import com.example.newsapp.ui.NewsViewModel
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_article.*
 
 class ArticleFragment : Fragment() {
@@ -18,19 +19,17 @@ class ArticleFragment : Fragment() {
     lateinit var viewModel: NewsViewModel
     val args :ArticleFragmentArgs by navArgs()
 
-
-
-
-
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel=(activity as NewsActivity).viewModel
-        val article=args.article
+        var article=args.article
         webView.apply {
             webViewClient= WebViewClient()
             loadUrl(article.url)
+        }
+        fab_btn.setOnClickListener{
+            viewModel.saveArticle(article)
+            Snackbar.make(view,"Article Saved Successfully",Snackbar.LENGTH_SHORT).show()
         }
     }
 
@@ -42,6 +41,9 @@ class ArticleFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_article, container, false)
     }
+
+
+
 
      }
 
