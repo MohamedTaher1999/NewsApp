@@ -29,8 +29,6 @@ class NewsActivity : FragmentActivity() {
         viewModel=ViewModelProvider(this,viewModelProviderFactory).get(NewsViewModel::class.java)
 
         setContentView(R.layout.activity_news)
-
-
         bottomNavigationView.setupWithNavController(newsNavHostFragment.findNavController())
 
 
