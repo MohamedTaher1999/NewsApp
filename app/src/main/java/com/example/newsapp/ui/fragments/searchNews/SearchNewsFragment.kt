@@ -1,4 +1,4 @@
-package com.example.newsapp.ui.fragments
+package com.example.newsapp.ui.fragments.searchNews
 
 import android.os.Bundle
 import android.util.Log
@@ -6,17 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.ProgressBar
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapp.R
-import com.example.newsapp.adapters.NewsAdapter
-import com.example.newsapp.ui.NewsActivity
 import com.example.newsapp.ui.NewsViewModel
+import com.example.newsapp.ui.NewsActivity
 import com.example.newsapp.util.Constants.Companion.SEARCH_NEWS_TIME_DELAY
 import com.example.newsapp.util.Resource
 import kotlinx.android.synthetic.main.fragment_search_news.*
@@ -27,15 +23,15 @@ import kotlinx.coroutines.launch
 
 class SearchNewsFragment : Fragment() {
 
-    lateinit var viewModel: NewsViewModel
-    lateinit var newsAdapter: NewsAdapter
+    lateinit var viewModel: SearchNewsViewModel
+    lateinit var searchnewsAdapter: SearchNewsAdapter
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel=(activity as NewsActivity).viewModel
+        viewModel=(activity as NewsActivity).searchNewsViewModel
         setupRecyclerView()
-        newsAdapter.setOnItemClickListener {
+        searchnewsAdapter.setOnItemClickListener {
             val bundle=Bundle().apply {
                 putSerializable("article",it)
             }
@@ -63,7 +59,7 @@ class SearchNewsFragment : Fragment() {
                 is Resource.Success->{
                     hideProgressBar()
                     response.data?.let { newsResponse ->
-                        newsAdapter.differ.submitList(newsResponse.articles)
+                        searchnewsAdapter.differ.submitList(newsResponse.articles)
                     }
 
                 }
@@ -101,9 +97,9 @@ class SearchNewsFragment : Fragment() {
 
     }
     private fun setupRecyclerView(){
-        newsAdapter= NewsAdapter()
+        searchnewsAdapter= SearchNewsAdapter()
         rvSearchNews.apply {
-            adapter=newsAdapter
+            adapter=searchnewsAdapter
             layoutManager= LinearLayoutManager(activity)
         }
 

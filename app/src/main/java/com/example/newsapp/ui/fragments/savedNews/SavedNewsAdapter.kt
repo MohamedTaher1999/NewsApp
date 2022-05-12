@@ -1,21 +1,17 @@
-package com.example.newsapp.adapters
+package com.example.newsapp.ui.fragments.savedNews
 
-import android.media.Image
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.newsapp.R
-import com.example.newsapp.models.Article
+import com.example.newsapp.data.models.Article
 import kotlinx.android.synthetic.main.item_article_preview.view.*
-import org.w3c.dom.Text
 
-class NewsAdapter : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
+class SavedNewsAdapter : RecyclerView.Adapter<SavedNewsAdapter.ArticleViewHolder>() {
 
     inner class ArticleViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)
 

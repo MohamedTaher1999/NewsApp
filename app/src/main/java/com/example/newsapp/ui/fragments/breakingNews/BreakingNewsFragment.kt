@@ -1,4 +1,4 @@
-package com.example.newsapp.ui.fragments
+package com.example.newsapp.ui.fragments.breakingNews
 
 import android.os.Bundle
 import android.util.Log
@@ -6,14 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapp.R
-import com.example.newsapp.adapters.NewsAdapter
 import com.example.newsapp.ui.NewsActivity
 import com.example.newsapp.ui.NewsViewModel
 import com.example.newsapp.util.Resource
@@ -22,14 +18,14 @@ import kotlinx.android.synthetic.main.fragment_breaking_news.*
 
 class BreakingNewsFragment : Fragment() {
 
-    lateinit var viewModel:NewsViewModel
-    lateinit var newsAdapter:NewsAdapter
+    lateinit var viewModel:BreakingNewsViewModel
+    lateinit var breakingNewsAdapter:BreakingNewsAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel=(activity as NewsActivity).viewModel
+        viewModel=(activity as NewsActivity).breakingNewsViewModel
         setupRecyclerView()
-        newsAdapter.setOnItemClickListener {
+        breakingNewsAdapter.setOnItemClickListener {
             val bundle=Bundle().apply {
                 putSerializable("article",it)
             }
@@ -41,7 +37,7 @@ class BreakingNewsFragment : Fragment() {
                 is Resource.Success->{
                     hideProgressBar()
                     response.data?.let { newsResponse ->
-                        newsAdapter.differ.submitList(newsResponse.articles)
+                        breakingNewsAdapter.differ.submitList(newsResponse.articles)
                     }
 
                 }
@@ -81,9 +77,9 @@ class BreakingNewsFragment : Fragment() {
 
     }
     private fun setupRecyclerView(){
-        newsAdapter= NewsAdapter()
+        breakingNewsAdapter= BreakingNewsAdapter()
         rvBreakingNews.apply {
-            adapter=newsAdapter
+            adapter=breakingNewsAdapter
             layoutManager=LinearLayoutManager(activity)
         }
 
